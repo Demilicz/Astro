@@ -7,42 +7,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { ChangeEvent, InputHTMLAttributes, ReactEventHandler, useState } from 'react';
+import { ChangeEvent,useState } from 'react';
+
+import data from './data';
 
 
-export const getStaticProps: GetStaticProps = async () => {
 
-  const res =   await fetch(
-    "https://sameer-kumar-aztro-v1.p.rapidapi.com/?sign=capricorn&day=today",
-    {
-    "method": "POST",
-    "headers": {
-      "x-rapidapi-host": "sameer-kumar-aztro-v1.p.rapidapi.com",
-      "x-rapidapi-key": process.env.REACT_APP_RAPIDAPI_KEY
-    }
-  });
-
-  const data = await res.json();
-
-  if (!data) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      prediction: data
-    }
-  }
-
-}
-
-//{ prediction }: InferGetStaticPropsType<typeof getStaticProps>
-
-
-const Home: NextPage = ({ prediction }: InferGetStaticPropsType<typeof getStaticProps>) => {
-console.log(prediction);
+const Home: NextPage = () => {
 
   const [day, setDay] = useState('today');
 
@@ -73,39 +44,40 @@ console.log(prediction);
 
       <ul>
         <li>
-          <Link href='#'>Capricorn</Link>
+          <Link href={`capricorn&${day}`} key={Math.random().toString()}><a>Capricorn</a></Link>
         </li>
         <li>
-          <Link href='#'>Aquarius</Link>
+          <Link href={`aquarius&${day}`} key={Math.random().toString()}><a>Aquarius</a></Link>
         </li>
         <li>
-          <Link href='#'>Pisces</Link>
+          <Link href={`pisces&${day}`} key={Math.random().toString()}><a>Pisces</a></Link>
         </li>
         <li>
-          <Link href='#'>Aries</Link>
+          <Link href={`aries&${day}`} key={Math.random().toString()}><a>Aries</a></Link>
         </li>
         <li>
-          <Link href='#'>Taurus</Link>
+          <Link href={`taurus&${day}`} key={Math.random().toString()}><a>Taurus</a></Link>
         </li>
         <li>
-          <Link href='#'>Gemini</Link>
+          <Link href={`gemini&${day}`} key={Math.random().toString()}><a>Gemini</a></Link>
         </li>
         <li>
-          <Link href='#'>Cancer</Link>
+          <Link href={`cancer&${day}`} key={Math.random().toString()}><a>Cancer</a></Link>
         </li>
         <li>
-          <Link href='#'>Leo</Link></li>
-        <li>
-          <Link href='#'>Virgo</Link>
+          <Link href={`leo&${day}`} key={Math.random().toString()}><a>Leo</a></Link>
         </li>
         <li>
-          <Link href='#'>Libra</Link>
+          <Link href={`virgo&${day}`} key={Math.random().toString()}><a>Virgo</a></Link>
         </li>
         <li>
-          <Link href='#'>Scorpio</Link>
+          <Link href={`libra&${day}`} key={Math.random().toString()}><a>Libra</a></Link>
         </li>
         <li>
-          <Link href='#'>Sagittarius</Link>
+          <Link href={`scorpio&${day}`} key={Math.random().toString()}><a>Scorpio</a></Link>
+        </li>
+        <li>
+          <Link href={`sagittarius&${day}`} key={Math.random().toString()}><a>Sagittarius</a></Link>
         </li>
       </ul>
 
