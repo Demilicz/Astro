@@ -1,6 +1,12 @@
 
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import data from './data';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
+
+import data from './dates/data';
+
+import Head from 'next/head';
+
+import Header from './components/header';
+import Footer from './components/footer';
 
 const contextHandler = (con: string) => {
   let sym = con.indexOf('&');
@@ -23,15 +29,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
 
-
-
   const link = context?.params?.prediction;
 
   let params = contextHandler(link as string);
-
-  console.log(link);
-
-
 
   const res =   await fetch(
     `https://sameer-kumar-aztro-v1.p.rapidapi.com/?sign=${params.sign}&day=${params.day}`,
@@ -59,16 +59,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 }
 
-
-
-export const Prediction = ({ prediction }: InferGetStaticPropsType<typeof getStaticProps>) => {
-
+export const Prediction : NextPage = ({ prediction }: InferGetStaticPropsType<typeof getStaticProps>) => {
   console.log(prediction);
-
 
   return (
     <div>
-      {prediction.description}
+       <Head>
+          <title>Prediction | Horoscope</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Header/>
+      <div>{prediction.description}</div>
+      <div>{prediction.date_range}</div>
+      <Footer/>
     </div>
   )
 }
